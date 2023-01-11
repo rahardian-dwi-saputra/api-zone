@@ -33,6 +33,16 @@ class UserRequest extends FormRequest
             $rules['role'] = 'required|boolean';
             $rules['password'] = 'required|min:5|confirmed';
         }
+        if(request()->routeIs('user.update')){
+            $rules['email'] = [
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($this->user)
+            ];
+            $rules['role'] = 'required|boolean';
+            $rules['password_baru'] = 'nullable|min:5|confirmed';
+        }
 
         if(request()->is('profil')){
             $rules['username'] = [
@@ -53,6 +63,7 @@ class UserRequest extends FormRequest
     public function attributes(){
         return [
             'name' => 'Nama',
+            'password_baru' => 'password baru'
         ];
     }
 }

@@ -28,7 +28,7 @@
                     	<div class="row">
                     		<div class="col-lg-12">
                     			<a href="/user/create" class="btn btn-primary">
-                    				<i class="fa fa-plus-circle"></i> Tambah Data
+                    				<i class="fa fa-user-plus"></i> Tambah User
                     			</a>
                     		</div>
                     	</div>
@@ -110,14 +110,7 @@
 		var table = $('#data-user').DataTable({
         	processing: true,
             serverSide: true,
-            ajax: {
-                url: "/user",
-                data: function (d) {
-                    d.provinsi = $('#filter_provinsi').val(),
-                    d.kota = $('#filter_kota').val(),
-                    d.user = $('#filter_user').val()
-                }
-            },
+            ajax: "/user",
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'name', name: 'name'},
@@ -133,26 +126,6 @@
             ]
         });
 
-		
-
-        
-
-        $('#table-filter').submit(function(e){
-            e.preventDefault();
-            table.draw();
-        });
-
-        $('button[type=reset]').click(function(){
-            $("#filter_provinsi").val('').trigger('change');
-            $('#filter_kota option').remove(); 
-            $('#filter_kota').append($('<option>', { 
-                value: '',
-                text : 'Semua Kota' 
-            }));
-            $("#filter_user").val('').trigger('change');
-            table.draw();
-        });
-
 		$(document).on('click', 'a#hapus', function(e){ 
 			e.preventDefault();
 			$('#link').val($(this).attr('href'));
@@ -162,7 +135,7 @@
 		$('#form-hapus').submit(function(e){
 			e.preventDefault();
 			$.ajax({
-				url: "/datacustomer/"+$('#link').val(),
+				url: "/user/"+$('#link').val(),
 				type: "POST",
 				data: $(this).serializeArray(),
 				dataType: 'json',

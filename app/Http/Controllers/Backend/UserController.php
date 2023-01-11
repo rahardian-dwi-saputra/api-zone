@@ -93,9 +93,19 @@ class UserController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(UserRequest $request, User $user){
         
+        if($request->password_baru != null){
+            $validatedData = $request->safe()->merge([
+                'is_admin' => $request->role,
+                'password' => bcrypt($request->password_baru),
+            ]);
+        }else{
+            $validatedData = $request->safe()->merge(['is_admin' => $request->role]);
+        }
+
+        User::find($user->id)->update($validatedData->all());
+        return redirect('/user')->with('success','Data Pengguna Berhasil Diedit');
     }
 
     /**
@@ -104,8 +114,7 @@ class UserController extends Controller{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(User $user){
+        
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use DataTables;
 use App\Http\Requests\UserRequest;
+use App\Models\Customer;
 
 class UserController extends Controller{
     /**
@@ -115,6 +116,28 @@ class UserController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user){
-        
+        if(!in_array($user->id, array(1,2))){
+
+            $user->tokens()->delete();
+            Customer::where('user_id', $user->id)->delete();
+            $delete = User::destroy($user->id);
+            if($delete){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Data Pengguna berhasil dihapus',
+                ]);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data Pengguna gagal dihapus, coba sekali lagi',
+                ]);
+            }
+
+        }else{
+           return response()->json([
+                'success' => false,
+                'message' => 'Data Pengguna tidak dapat dihapus',
+            ]); 
+        }
     }
 }

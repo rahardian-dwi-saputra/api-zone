@@ -12,8 +12,14 @@ class StoreCustomerRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize(){
+        if(request()->routeIs('datacustomer.update')){
+            return $this->user()->can('update', $this->datacustomer);
+        }
+        if(request()->routeIs('customers.update')){
+            return $this->user()->can('update', $this->customer);
+        }
+
         return true;
     }
 

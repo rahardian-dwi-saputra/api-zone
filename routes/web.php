@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function(){
 	});
 	Route::resource('message', MessageController::class)->only('index');
 	Route::resource('datacustomer', MasterCustomerController::class);
-
+	
 	Route::get('getprovinsi',  [MasterKecamatanController::class, 'get_provinsi']);
 	Route::get('getkota/{id}', [MasterKecamatanController::class, 'get_kota']);
 	Route::get('getkecamatan/{id}', [MasterKecamatanController::class, 'get_kecamatan']);

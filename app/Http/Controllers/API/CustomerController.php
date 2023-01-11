@@ -17,14 +17,15 @@ class CustomerController extends BaseController{
      */
     public function index(Request $request){
         if(Gate::allows('isAdmin')){
-            if(Customer::count() > 0)
-                return $this->sendResponse(CustomerResource::collection(Customer::all()), 'Berhasil menarik data customer');
-            else
+            if(Customer::count() > 0){
+                $customers = Customer::with(['provinsi','kota','kecamatan','user'])->get();
+                return $this->sendResponse(CustomerResource::collection($customers), 'Berhasil menarik data customer');
+            }else
                 return $this->sendError('Data tidak ditemukan');
         }else{
-            $data = Customer::where('user_id',$request->user()->id);
-            if($data->exists()){
-                return $this->sendResponse(CustomerResource::collection($data->get()), 'Berhasil menarik data customer');
+            $customers = Customer::with(['provinsi','kota','kecamatan','user'])->where('user_id',$request->user()->id);
+            if($customers->exists()){
+                return $this->sendResponse(CustomerResource::collection($customers->get()), 'Berhasil menarik data customer');
             }else{
                 return $this->sendError('Data tidak ditemukan');
             }
@@ -55,11 +56,17 @@ class CustomerController extends BaseController{
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(StoreCustomerRequest $customer){
+    public function show(Customer $customer){
         if (is_null($customer)) {
             return $this->sendError('Data tidak ditemukan');
         }
-        return $this->sendResponse(new CustomerResource($customer), 'Berhasil mengambil data customer');
+
+        $response = Gate::inspect('view', $customer);
+        if ($response->allowed()){
+            return $this->sendResponse(new CustomerResource($customer), 'Berhasil mengambil data customer');
+        }else{
+            return $this->sendError('Data tidak ditemukan');
+        }
     }
 
     /**
@@ -71,12 +78,15 @@ class CustomerController extends BaseController{
      */
     public function update(StoreCustomerRequest $request, Customer $customer){
 
-        $validatedData = $request->safe()->merge([
-            'nama_pelanggan' => $request->nama,
-            'alamat' => $request->alamat,
-        ]);
+        $customer->nama_pelanggan = $request->nama;
+        $customer->nomor_telepon = $request->nomor_telepon;
+        $customer->email = $request->email;
+        $customer->alamat = $request->alamat;
+        $customer->provinsi_id = $request->provinsi_id;
+        $customer->kota_id = $request->kota_id;
+        $customer->kecamatan_id = $request->kecamatan_id;
+        $customer->save();
 
-        $customer = Customer::find($customer->id)->update($validatedData->all());
         return $this->sendResponse(new CustomerResource($customer), 'Berhasil mengubah data customer');
     }
 
@@ -87,7 +97,12 @@ class CustomerController extends BaseController{
      * @return \Illuminate\Http\Response
      */
     public function destroy(Customer $customer){
-        $customer->delete();
-        return $this->sendResponse([], 'Berhasil menghapus data customer');
+        $response = Gate::inspect('delete', $customer);
+        if ($response->allowed()) {
+            $customer->delete();
+            return $this->sendResponse([], 'Berhasil menghapus data customer');
+        }else{
+           return $this->sendError('Data tidak ditemukan'); 
+        }
     }
 }

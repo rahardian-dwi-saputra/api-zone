@@ -13,6 +13,8 @@ use DataTables;
 use App\Http\Requests\StoreCustomerRequest;
 use Illuminate\Support\Facades\Gate;
 
+use App\Http\Resources\Customer as CustomerResource;
+
 class MasterCustomerController extends Controller{
     /**
      * Display a listing of the resource.

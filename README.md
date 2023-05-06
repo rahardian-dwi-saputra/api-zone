@@ -22,3 +22,38 @@ Aplikasi ini dibangun dengan menggunakan :
 - Composer 2.5.4 or later
 - MySQL Server 8.0 or later
 - MySQL Workbench 8.0 CE or later
+
+## Instalasi
+Cloning repository git ke sebuah folder di local
+
+```sh
+git clone https://github.com/rahardian-dwi-saputra/api-zone.git
+```
+
+Install depedensi via composer
+
+```sh
+composer install
+```
+
+Buat sebuah file .env
+
+```sh
+cp .env.example .env
+```
+
+Buat sebuah database kemudian import data ke database
+
+```sh
+mysql -u root -p nama_database < restapi/database/restapi.sql
+```
+
+Jalankan project dengan valet laravel
+```sh
+valet start
+```
+
+Akses melalui browser
+```sh
+http://api-zone.test/login
+```

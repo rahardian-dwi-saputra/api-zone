@@ -151,6 +151,18 @@ class ProvinsiSeeder extends Seeder
               'id' => 'P34',
               'nama_provinsi' => 'Papua',
             ],
+            [
+              'id' => 'P36',
+              'nama_provinsi' => 'Papua Selatan',
+            ],
+            [
+              'id' => 'P37',
+              'nama_provinsi' => 'Papua Pegunungan',
+            ],
+            [
+              'id' => 'P38',
+              'nama_provinsi' => 'Papua Barat Daya',
+            ],
         ];
         Provinsi::insert($data_provinsi);
     }

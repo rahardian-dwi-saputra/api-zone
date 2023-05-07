@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\MessageController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\PasswordController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,8 @@ use App\Http\Controllers\Backend\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/register',  [RegisterController::class, 'index']);
+Route::post('/register',  [RegisterController::class, 'register']);
 
 Route::middleware('auth')->group(function(){ 
 	Route::get('/dashboard', [DashboardController::class, 'index']);

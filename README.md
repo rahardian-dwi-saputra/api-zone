@@ -1,6 +1,6 @@
 # REST API WILAYAH INDONESIA
 
-REST API untuk menarik data provinsi, kota dan kabupaten, dan kecamatan yang ada di Indonesia
+REST API untuk menarik data provinsi, kota dan kabupaten, dan kecamatan yang ada di Indonesia. Dilengkapi dengan fitur pembuatan daftar nama konsumen via API
 
 ## Fitur Aplikasi
 - Mengolah data provinsi, kota dan kabupaten, dan kecamatan di Indonesia
@@ -42,10 +42,10 @@ Buat sebuah file .env
 cp .env.example .env
 ```
 
-Buat sebuah database kemudian import data ke database
+Buat sebuah database kemudian import file rest_api_baru.sql ke database
 
 ```sh
-mysql -u root -p nama_database < restapi/database/restapi.sql
+mysql -u root -p nama_database < api-zone/database/rest_api_baru.sql
 ```
 
 Jalankan project dengan valet laravel
@@ -55,5 +55,5 @@ valet start
 
 Akses melalui browser
 ```sh
-http://api-zone.test/login
+http://api-zone.test
 ```

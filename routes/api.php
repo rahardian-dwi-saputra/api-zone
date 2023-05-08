@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('login', [AuthController::class, 'login']);
+Route::post('/api/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::get('getprovinsi', [ZoneController::class, 'daftar_provinsi']);
     Route::get('getkota', [ZoneController::class, 'daftar_kota']);

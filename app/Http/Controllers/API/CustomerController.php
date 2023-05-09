@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\API\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Http\Resources\Customer as CustomerResource;
 use App\Http\Requests\StoreCustomerRequest;
 use Illuminate\Support\Facades\Gate;
 
-class CustomerController extends BaseController{
+class CustomerController extends Controller{
     /**
      * Display a listing of the resource.
      *

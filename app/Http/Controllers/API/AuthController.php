@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\Controller;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller{
@@ -14,7 +14,6 @@ class AuthController extends Controller{
      *   summary="User Login",
      *   operationId="Login",
      *   description="Generate API Token",
-     *
      *   @OA\Parameter(
      *      name="username",
      *      in="query",
@@ -50,12 +49,12 @@ class AuthController extends Controller{
      *      response=404,
      *      description="not found"
      *   ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *)
-     **/
+     *   @OA\Response(
+     *      response=403,
+     *      description="Forbidden"
+     *   )
+     * )
+     */
     public function login(Request $request){
     	$loginData = $request->validate([
             'username' => 'required',

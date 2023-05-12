@@ -10,9 +10,9 @@ class AuthController extends Controller{
     /**
      * @OA\Post(
      *   path="/api/login",
-     *   tags={"Login"},
+     *   tags={"Authentication"},
      *   summary="User Login",
-     *   operationId="Login",
+     *   operationId="login",
      *   description="Generate API Token",
      *   @OA\Parameter(
      *      name="username",

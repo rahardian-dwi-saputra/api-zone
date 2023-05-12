@@ -17,14 +17,20 @@ use App\Http\Controllers\API\CustomerController;
 |
 */
 
+/*
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     Route::get('getprovinsi', [ZoneController::class, 'daftar_provinsi']);
-    Route::get('getkota', [ZoneController::class, 'daftar_kota']);
-    Route::get('getkecamatan', [ZoneController::class, 'daftar_kecamatan']);
+    Route::get('getkota/{provinsi_id}', [ZoneController::class, 'daftar_kota']);
+    Route::get('getkecamatan/{id}', [ZoneController::class, 'daftar_kecamatan']);
     Route::resource('customers', CustomerController::class)->except(['create', 'edit']);
 });

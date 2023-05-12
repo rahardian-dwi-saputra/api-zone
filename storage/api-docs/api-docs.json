@@ -3,17 +3,20 @@
     "info": {
         "title": "Dokumentasi REST API Wilayah Indonesia",
         "description": "REST API untuk menarik data provinsi, kota dan kabupaten, dan kecamatan yang ada di Indonesia dan juga dilengkapi dengan fitur pembuatan daftar nama konsumen via API",
+        "contact": {
+            "email": "radiandwi2206@gmail.com"
+        },
         "version": "1.0"
     },
     "paths": {
         "/api/login": {
             "post": {
                 "tags": [
-                    "Login"
+                    "Authentication"
                 ],
                 "summary": "User Login",
                 "description": "Generate API Token",
-                "operationId": "Login",
+                "operationId": "login",
                 "parameters": [
                     {
                         "name": "username",
@@ -61,7 +64,7 @@
                 ],
                 "summary": "Mendapatkan Daftar Provinsi",
                 "description": "Menampilkan semua daftar provinsi",
-                "operationId": "getListProvinsi",
+                "operationId": "daftar_provinsi",
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -78,7 +81,7 @@
                 },
                 "security": [
                     {
-                        "passport": []
+                        "bearer": []
                     }
                 ]
             }
@@ -90,7 +93,7 @@
                 ],
                 "summary": "Mendapatkan daftar Kota dan Kabupaten",
                 "description": "Menampilkan daftar kota dan kabupaten di suatu provinsi",
-                "operationId": "getListKota",
+                "operationId": "daftar_kota",
                 "parameters": [
                     {
                         "name": "provinsi_id",
@@ -120,7 +123,7 @@
                 },
                 "security": [
                     {
-                        "passport": []
+                        "bearer": []
                     }
                 ]
             }
@@ -132,7 +135,7 @@
                 ],
                 "summary": "Mendapatkan daftar Kecamatan",
                 "description": "Menampilkan daftar kecamatan di suatu kota atau kabupaten",
-                "operationId": "getListKecamatan",
+                "operationId": "daftar_kecamatan",
                 "parameters": [
                     {
                         "name": "id",
@@ -162,7 +165,7 @@
                 },
                 "security": [
                     {
-                        "passport": []
+                        "bearer": []
                     }
                 ]
             }
@@ -170,19 +173,11 @@
     },
     "components": {
         "securitySchemes": {
-            "passport": {
-                "type": "oauth2",
-                "description": "Laravel passport oauth2 security.",
-                "in": "header",
-                "scheme": "https",
-                "flows": {
-                    "password": {
-                        "authorizationUrl": "http://api-zone.test//oauth/authorize",
-                        "tokenUrl": "http://api-zone.test//oauth/token",
-                        "refreshUrl": "http://api-zone.test//token/refresh",
-                        "scopes": []
-                    }
-                }
+            "bearer": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     }

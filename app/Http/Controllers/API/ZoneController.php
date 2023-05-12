@@ -17,11 +17,9 @@ class ZoneController extends Controller{
     /**
      * @OA\Get(
      *   path="/api/getprovinsi",
-     *   operationId="getListProvinsi",
+     *   operationId="daftar_provinsi",
      *   tags={"Provinsi"},
-     *   security={
-     *    {"passport": {}},
-     *   },
+     *   security={{"bearer":{}}},
      *   summary="Mendapatkan Daftar Provinsi",
      *   description="Menampilkan semua daftar provinsi",
      *   @OA\Response(
@@ -53,11 +51,9 @@ class ZoneController extends Controller{
     /**
      * @OA\GET(
      *   path="/api/getkota/{provinsi_id}",
-     *   operationId="getListKota",
+     *   operationId="daftar_kota",
      *   tags={"Kota"},
-     *   security={
-     *    {"passport": {}},
-     *   },
+     *   security={{"bearer":{}}},
      *   summary="Mendapatkan daftar Kota dan Kabupaten",
      *   description="Menampilkan daftar kota dan kabupaten di suatu provinsi",
      *   @OA\Parameter(
@@ -89,38 +85,29 @@ class ZoneController extends Controller{
      *   )
      * )
      */
-    public function daftar_kota(Request $request){
-    	if(!empty($request->provinsi_id)){
-    		$kota = Kota::where('id_provinsi', $request->provinsi_id);
-    		if($kota->exists()){
-                return response()->json([
-                    'success' => true,
-                    'status_code' => Response::HTTP_OK,
-                    'data' => KotaResource::collection($kota->get()),
-                    'message' => 'Berhasil menarik data kota dan kabupaten'
-                ]);
-    		}else{
-                return response()->json([
-                    'success' => false, 
-                    'message' => 'Data tidak ditemukan'
-                ], 404);
-    		}
-    	}else{
+    public function daftar_kota(String $provinsi_id){
+        $kota = Kota::where('id_provinsi', $provinsi_id);
+        if($kota->exists()){
+            return response()->json([
+                'success' => true,
+                'status_code' => Response::HTTP_OK,
+                'data' => KotaResource::collection($kota->get()),
+                'message' => 'Berhasil menarik data kota dan kabupaten'
+            ]);
+        }else{
             return response()->json([
                 'success' => false, 
-                'message' => 'Parameter provinsi_id tidak boleh kosong'
-            ], 404);
-    	}
+                'message' => 'Data tidak ditemukan'
+            ], 404); 
+        }
     }
 
     /**
      * @OA\GET(
      *   path="/api/getkecamatan/{id}",
-     *   operationId="getListKecamatan",
+     *   operationId="daftar_kecamatan",
      *   tags={"Kecamatan"},
-     *   security={
-     *    {"passport": {}},
-     *   },
+     *   security={{"bearer":{}}},
      *   summary="Mendapatkan daftar Kecamatan",
      *   description="Menampilkan daftar kecamatan di suatu kota atau kabupaten",
      *   @OA\Parameter(
@@ -152,26 +139,19 @@ class ZoneController extends Controller{
      *   )
      * )
      */
-    public function daftar_kecamatan(Request $request){
-    	if(!empty($request->id)){
-            $kecamatan = Kecamatan::where('id_kota', $request->id);
-            if($kecamatan->exists()){
-                return response()->json([
-                    'success' => true,
-                    'status_code' => Response::HTTP_OK,
-                    'data' => KecamatanResource::collection($kecamatan->get()),
-                    'message' => 'Berhasil menarik data kecamatan'
-                ]);
-            }else{
-                return response()->json([
-                    'success' => false, 
-                    'message' => 'Data tidak ditemukan'
-                ], 404);
-            }
+    public function daftar_kecamatan(String $id){
+        $kecamatan = Kecamatan::where('id_kota', $id);
+        if($kecamatan->exists()){
+            return response()->json([
+                'success' => true,
+                'status_code' => Response::HTTP_OK,
+                'data' => KecamatanResource::collection($kecamatan->get()),
+                'message' => 'Berhasil menarik data kecamatan'
+            ]);
         }else{
             return response()->json([
                 'success' => false, 
-                'message' => 'Parameter id tidak boleh kosong'
+                'message' => 'Data tidak ditemukan'
             ], 404);
         }
     }

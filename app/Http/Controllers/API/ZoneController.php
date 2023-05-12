@@ -61,6 +61,7 @@ class ZoneController extends Controller{
      *       in="path",
      *       required=true,
      *       description="id provinsi",
+     *       example="P05",
      *       @OA\Schema(
      *           type="string"
      *       )
@@ -116,6 +117,7 @@ class ZoneController extends Controller{
      *       in="path",
      *       required=true,
      *       description="id kota atau id kabupaten",
+     *       example="K00401",
      *       @OA\Schema(
      *           type="string"
      *       )

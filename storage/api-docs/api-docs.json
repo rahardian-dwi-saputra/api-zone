@@ -57,6 +57,299 @@
                 }
             }
         },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Mendapatkan Daftar Customer",
+                "description": "Menampilkan semua daftar customer",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Simpan Data Customer",
+                "description": "Menyimpan data customer",
+                "operationId": "store",
+                "requestBody": {
+                    "description": "Data Customer",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "nomor_telepon",
+                                    "email",
+                                    "provinsi_id",
+                                    "kota_id",
+                                    "kecamatan_id"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "description": "Nama Customer",
+                                        "type": "string",
+                                        "example": "Dummy Customer"
+                                    },
+                                    "nomor_telepon": {
+                                        "description": "Nomor Telepon Customer",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email Customer",
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "description": "Alamat Customer",
+                                        "type": "text"
+                                    },
+                                    "provinsi_id": {
+                                        "description": "id provinsi dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "P07"
+                                    },
+                                    "kota_id": {
+                                        "description": "id kota atau kabupaten dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "K00007"
+                                    },
+                                    "kecamatan_id": {
+                                        "description": "id kecamatan dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "D00001932"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Stored Successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Input"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customers/{customer}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Mendapatkan detail Customer",
+                "description": "Menampilkan detail data Customer",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "id customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Operation",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Edit Data Customer",
+                "description": "Mengedit data customer",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "id customer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Update Data Customer",
+                    "required": true,
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "nama",
+                                    "nomor_telepon",
+                                    "email",
+                                    "provinsi_id",
+                                    "kota_id",
+                                    "kecamatan_id"
+                                ],
+                                "properties": {
+                                    "nama": {
+                                        "description": "Nama Customer",
+                                        "type": "string",
+                                        "example": "Dummy Update Customer"
+                                    },
+                                    "nomor_telepon": {
+                                        "description": "Nomor Telepon Customer",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email Customer",
+                                        "type": "string"
+                                    },
+                                    "alamat": {
+                                        "description": "Alamat Customer",
+                                        "type": "text"
+                                    },
+                                    "provinsi_id": {
+                                        "description": "id provinsi dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "P10"
+                                    },
+                                    "kota_id": {
+                                        "description": "id kota atau kabupaten dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "K00379"
+                                    },
+                                    "kecamatan_id": {
+                                        "description": "id kecamatan dari Alamat Customer",
+                                        "type": "string",
+                                        "example": "D00001820"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated Successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid Input"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Hapus Customer",
+                "description": "Menghapus Data Customer",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "description": "id customer yang akan dihapus",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deleted Successfully",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid id customer"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/getprovinsi": {
             "get": {
                 "tags": [
@@ -102,7 +395,8 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "P05"
                     }
                 ],
                 "responses": {
@@ -145,7 +439,8 @@
                         "required": true,
                         "schema": {
                             "type": "string"
-                        }
+                        },
+                        "example": "K00401"
                     }
                 ],
                 "responses": {

@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\PasswordController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\RegisterController;
+use App\Http\Controllers\Frontend\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,7 @@ use App\Http\Controllers\Backend\RegisterController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/register',  [RegisterController::class, 'index']);
 Route::post('/register',  [RegisterController::class, 'register']);
 

@@ -98,6 +98,7 @@
                     {
                         "name": "provinsi_id",
                         "in": "path",
+                        "description": "id provinsi",
                         "required": true,
                         "schema": {
                             "type": "string"
@@ -140,6 +141,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "id kota atau id kabupaten",
                         "required": true,
                         "schema": {
                             "type": "string"

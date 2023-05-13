@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\PasswordController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\RegisterController;
+use App\Http\Controllers\Backend\ForgotPasswordController;
 use App\Http\Controllers\Frontend\HomeController;
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,13 @@ use App\Http\Controllers\Frontend\HomeController;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/register',  [RegisterController::class, 'index']);
 Route::post('/register',  [RegisterController::class, 'register']);
+
+Route::controller(ForgotPasswordController::class)->group(function(){ 
+	Route::get('/forgot-password', 'index');
+	Route::post('/forgot-password', 'submitForgetPasswordForm');
+	Route::get('/reset-password/{token}', 'reset_password_form')->name('reset.password');
+	Route::post('/reset-password', 'reset_password');
+});
 
 Route::middleware('auth')->group(function(){ 
 	Route::get('/dashboard', [DashboardController::class, 'index']);

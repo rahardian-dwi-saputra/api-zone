@@ -16,8 +16,9 @@ class UserController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        if (request()->ajax()){ 
-            return Datatables::of(User::select('id','name','username','email','is_admin'))
+        if (request()->ajax()){
+            $user = User::select('id','name','username','email','is_admin')->where('id','!=',1);
+            return Datatables::of($user)
                     ->addIndexColumn()
                     ->addColumn('role', function($row){ 
                         if($row->is_admin == 1)
